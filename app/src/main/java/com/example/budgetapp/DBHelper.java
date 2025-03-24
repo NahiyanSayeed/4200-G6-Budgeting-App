@@ -55,4 +55,19 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM expenses", null);
         return cursor;
     }
+
+    public Cursor displayAccountData(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM accounts", null);
+        return cursor;
+    }
+
+    public Cursor deleteExpenseData(String title) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM expenses WHERE category=?", new String[]{title});
+        if (cursor.getCount() > 0) {
+            db.delete("expenses", "category=?", new String[]{title});
+        }
+        return cursor;
+    }
 }
