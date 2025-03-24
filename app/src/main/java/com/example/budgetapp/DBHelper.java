@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelper extends SQLiteOpenHelper {
     //Constructor
     public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -62,12 +65,65 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor deleteExpenseData(String title) {
+    public void deleteExpenseData(String title) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM expenses WHERE category=?", new String[]{title});
         if (cursor.getCount() > 0) {
             db.delete("expenses", "category=?", new String[]{title});
         }
-        return cursor;
+        cursor.close();
+    }
+
+    public void deleteAccountData(String username) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM account WHERE username=?", new String[]{username});
+        if (cursor.getCount() > 0) {
+            db.delete("account", "username=?", new String[]{username});
+        }
+        cursor.close();
+    }
+
+    public void deleteAccountData(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM account WHERE _id=?", new String[]{Integer.toString(id)});
+        if (cursor.getCount() > 0) {
+            db.delete("account", "_id=?", new String[]{Integer.toString(id)});
+        }
+        cursor.close();
+    }
+
+    public List<Expense> getAllExpenses() {
+        List<Expense> output = new ArrayList<Expense>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM expenses", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String category = cursor.getString(0);
+                String description = cursor.getString(1);
+                double amount = cursor.getDouble(2);
+
+                output.add(new Expense(category, description, amount));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return output;
+    }
+
+    public List<Account> getAllAccount() {
+        List<Account> output = new ArrayList<Account>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM account", null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String username = cursor.getString(1);
+                String password = cursor.getString(2);
+
+                output.add(new Account(id, username, password));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return output;
     }
 }
