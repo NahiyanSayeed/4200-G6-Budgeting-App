@@ -9,6 +9,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DetailedBreakdownActivity extends AppCompatActivity {
 
+
+    /*
+    Auth: Spondon
+    Creates pane, collects info from others and handles nave bar
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,6 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
                 intent.putExtra("income", income);
                 startActivity(intent);
             }
-    //a
             return true;
         });
     }
