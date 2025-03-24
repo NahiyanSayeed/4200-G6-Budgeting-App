@@ -1,12 +1,18 @@
 package com.example.budgetapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 /*
@@ -23,6 +29,7 @@ public class OverviewActivity extends AppCompatActivity {
     private LinearLayout expenseList;
     private ProgressBar circlePBar;
     private TextView budgetText;
+    private BottomNavigationView bottomNavigationView;
 
     //Variables
     private double budget;
@@ -44,6 +51,7 @@ public class OverviewActivity extends AppCompatActivity {
         expenseList = findViewById(R.id.ExpenseTracker);
         circlePBar = findViewById(R.id.BudgetProgressBar);
         budgetText = findViewById(R.id.ProgressBarText);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
 
         //Budget
         //TODO: Grab budget and expenses from sql first then getIntent
@@ -61,6 +69,27 @@ public class OverviewActivity extends AppCompatActivity {
             budgetText.setTextColor(Color.RED);
         }
         budgetText.setText("Budget Remaining: $" + budgetRemaining);
+
+        //Handles Bottom Navigation Clicks
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.nav_transactions) {
+                    //startActivity(new Intent(OverviewActivity.this, TransactionsActivity.class));
+                    return true;
+                } else if (id == R.id.nav_overview) {
+                    return true;
+                } else if (id == R.id.nav_budget_sheet) {
+                  startActivity(new Intent(OverviewActivity.this, BudgetActivity.class));
+                  return true;
+                } else if (id == R.id.nav_detailed_breakdown) {
+                    //startActivity(new Intent(OverviewActivity.this, BreakdownActivity.class));
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
 
