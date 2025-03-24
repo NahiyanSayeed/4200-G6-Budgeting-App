@@ -40,7 +40,7 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
                 intent.putExtra("income", income);
                 startActivity(intent);
             }
-    //
+    //a
             return true;
         });
     }
