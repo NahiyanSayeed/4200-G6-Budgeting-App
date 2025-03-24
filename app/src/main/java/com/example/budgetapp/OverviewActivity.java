@@ -48,7 +48,7 @@ public class OverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_overview);
 
         //Init the views
-        expenseList = findViewById(R.id.ExpenseTracker);
+        expenseList = findViewById(R.id.expenseContainer);
         circlePBar = findViewById(R.id.BudgetProgressBar);
         budgetText = findViewById(R.id.ProgressBarText);
         bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -61,6 +61,8 @@ public class OverviewActivity extends AppCompatActivity {
         //TODO: Grab overview from sql
 
         //Set views
+        bottomNavigationView.setSelectedItemId(R.id.nav_overview);
+
         int progressPercentage = (budget != 0) ? (int) (expense / budget) : 0;
         circlePBar.setProgress(progressPercentage);
 

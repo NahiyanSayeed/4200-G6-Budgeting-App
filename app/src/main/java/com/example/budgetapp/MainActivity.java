@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Income must be greater than 0", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
+                Intent intent = new Intent(MainActivity.this, OverviewActivity.class);
 
                 //Intent intent = new Intent(MainActivity.this, Test.class);
 
