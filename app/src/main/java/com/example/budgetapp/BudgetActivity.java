@@ -2,6 +2,7 @@ package com.example.budgetapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,13 +114,22 @@ public class BudgetActivity extends AppCompatActivity {
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_transactions) {
-                //todo add stuff to transfer screens
+//                Intent intent = new Intent(BudgetActivity.this, DetailedBreakdownActivity.class);
+//                intent.putExtra("income", income);
+//                startActivity(intent);
+                //todo When transactions is made make a swap here
             } else if (itemId == R.id.nav_overview) {
-                //todo add stuff to transfer screens
+                Intent intent = new Intent(BudgetActivity.this, OverviewActivity.class);
+                intent.putExtra("income", income);
+                startActivity(intent);
             } else if (itemId == R.id.nav_budget_sheet) {
-                //todo add stuff to transfer screens
+                Intent intent = new Intent(BudgetActivity.this, Expense.class);
+                intent.putExtra("income", income);
+                startActivity(intent);
             } else if (itemId == R.id.nav_detailed_breakdown) {
-                //todo add stuff to transfer screens
+                Intent intent = new Intent(BudgetActivity.this, DetailedBreakdownActivity.class);
+                intent.putExtra("income", income);
+                startActivity(intent);
             }
             return true;
         });
