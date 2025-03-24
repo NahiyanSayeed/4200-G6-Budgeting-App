@@ -122,11 +122,13 @@ public class BudgetActivity extends AppCompatActivity {
                 Intent intent = new Intent(BudgetActivity.this, OverviewActivity.class);
                 intent.putExtra("income", income);
                 startActivity(intent);
-            } else if (itemId == R.id.nav_budget_sheet) {
-                Intent intent = new Intent(BudgetActivity.this, Expense.class);
-                intent.putExtra("income", income);
-                startActivity(intent);
-            } else if (itemId == R.id.nav_detailed_breakdown) {
+            }
+//            else if (itemId == R.id.nav_budget_sheet) {
+//                Intent intent = new Intent(BudgetActivity.this, Expense.class);
+//                intent.putExtra("income", income);
+//                startActivity(intent);
+//            }
+            else if (itemId == R.id.nav_detailed_breakdown) {
                 Intent intent = new Intent(BudgetActivity.this, DetailedBreakdownActivity.class);
                 intent.putExtra("income", income);
                 startActivity(intent);
