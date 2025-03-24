@@ -40,11 +40,12 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailedBreakdownActivity.this, Expense.class);
                 intent.putExtra("income", income);
                 startActivity(intent);
-            } else if (itemId == R.id.nav_detailed_breakdown) {
-                Intent intent = new Intent(DetailedBreakdownActivity.this, DetailedBreakdownActivity.class);
-                intent.putExtra("income", income);
-                startActivity(intent);
             }
+//            else if (itemId == R.id.nav_detailed_breakdown) {
+//                Intent intent = new Intent(DetailedBreakdownActivity.this, DetailedBreakdownActivity.class);
+//                intent.putExtra("income", income);
+//                startActivity(intent);
+//            }
             return true;
         });
     }
