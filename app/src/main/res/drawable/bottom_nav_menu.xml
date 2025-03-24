@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_transactions"
+        android:icon="@drawable/payments_24px"/>
+<!--        android:title="Transactions" -->
+    <item
+        android:id="@+id/nav_overview"
+        android:icon="@drawable/home_24px"/>
+<!--        android:title="Overview" -->
+    <item
+        android:id="@+id/nav_budget_sheet"
+        android:icon="@drawable/description_24px"
+        />
+<!--        android:title="Budgeting" -->
+
+    <item
+        android:id="@+id/nav_detailed_breakdown"
+        android:icon="@drawable/zoom_in_24px"/>
+<!--        android:title="Breakdown" -->
+</menu>

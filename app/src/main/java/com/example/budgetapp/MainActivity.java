@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText editIncome;
@@ -51,11 +53,29 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
+
+                //Intent intent = new Intent(MainActivity.this, Test.class);
+
                 intent.putExtra("income", income);
                 startActivity(intent);
             }
         });
 
+        // Handles nav bar
+//        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+//        bottomNav.setOnItemSelectedListener(item -> {
+//            int itemId = item.getItemId();
+//            if (itemId == R.id.nav_transactions) {
+//                //
+//            } else if (itemId == R.id.nav_overview) {
+//                //
+//            } else if (itemId == R.id.nav_budget_sheet) {
+//                //
+//            } else if (itemId == R.id.nav_detailed_breakdown) {
+//                //
+//            }
+//            return true;
+//        });
 
 
     }

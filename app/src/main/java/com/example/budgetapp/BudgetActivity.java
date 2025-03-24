@@ -15,6 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +107,22 @@ public class BudgetActivity extends AppCompatActivity {
 
         // Set up the ExpandableListView adapter
         updateSummary();
+
+        // Handles nav bar
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_transactions) {
+                //todo add stuff to transfer screens
+            } else if (itemId == R.id.nav_overview) {
+                //todo add stuff to transfer screens
+            } else if (itemId == R.id.nav_budget_sheet) {
+                //todo add stuff to transfer screens
+            } else if (itemId == R.id.nav_detailed_breakdown) {
+                //todo add stuff to transfer screens
+            }
+            return true;
+        });
     }
 
     private void updateSummary() {
