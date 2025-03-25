@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 
 /*
 * OverviewActivity Class
@@ -53,17 +55,30 @@ public class OverviewActivity extends AppCompatActivity {
         budgetText = findViewById(R.id.ProgressBarText);
         bottomNavigationView = findViewById(R.id.bottom_nav);
 
-        //Budget
-        //TODO: Grab budget and expenses from sql first then getIntent
+        //Get Intents
+        //TODO: Grab budget sql first then getIntent
         budget = getIntent().getDoubleExtra("budget", 0);
         expense = getIntent().getDoubleExtra("expense", 0);
 
-        //TODO: Grab overview from sql
+
+        //Expenses setup
+        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        List<Expense> expenses = dbHelper.getAllExpenses();
+        double totalExpenses = 0;
+
+        for (Expense e : expenses) {
+            totalExpenses += e.getAmount();
+        }
+
+        for (Expense e : expenses) {
+            int percentage = (int) (e.getAmount() / totalExpenses);
+            generateExpense(e, percentage);
+        }
 
         //Set views
         bottomNavigationView.setSelectedItemId(R.id.nav_overview);
 
-        int progressPercentage = (budget != 0) ? (int) (expense / budget) : 0;
+        int progressPercentage = (budget != 0) ? (int) (expense / budget) : 95;
         circlePBar.setProgress(progressPercentage);
 
         double budgetRemaining = budget - expense;
