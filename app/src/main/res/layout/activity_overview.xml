@@ -67,9 +67,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
+
     <androidx.cardview.widget.CardView
+
         android:id="@+id/ExpenseTracker"
         android:layout_width="359dp"
         android:layout_height="341dp"
@@ -93,6 +96,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
+
+                <Button
+                    android:id="@+id/setupBudgetButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="First time? Set up your budget here!"
+                    android:visibility="gone"
+                    />
+                <Button
+                    android:id="@+id/addFundsButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Out of budget? Add more funds!"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/GeneralOverview"

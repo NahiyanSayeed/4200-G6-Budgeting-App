@@ -38,6 +38,12 @@
         <activity
             android:name=".DetailedBreakdownActivity"
             android:exported="false" />
+
+        <activity android:name=".BudgetSetupActivity"
+            android:exported="false"
+            />
+
+
     </application>
 
 </manifest>

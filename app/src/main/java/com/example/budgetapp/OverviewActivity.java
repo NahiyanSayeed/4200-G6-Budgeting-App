@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -55,14 +57,17 @@ public class OverviewActivity extends AppCompatActivity {
         budgetText = findViewById(R.id.ProgressBarText);
         bottomNavigationView = findViewById(R.id.bottom_nav);
 
+
         //Get Intents
         //TODO: Grab budget sql first then getIntent
-        budget = getIntent().getDoubleExtra("budget", 0);
-        expense = getIntent().getDoubleExtra("expense", 0);
-
+        //budget = getIntent().getDoubleExtra("budget", 0);
+        //expense = getIntent().getDoubleExtra("expense", 0);
 
         //Expenses setup
+        int userId = getIntent().getIntExtra("userID", -1);
         DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        budget = dbHelper.getBudgetById(userId); // <-- budget from DB
+
         List<Expense> expenses = dbHelper.getAllExpenses();
         double totalExpenses = 0;
 
@@ -71,21 +76,41 @@ public class OverviewActivity extends AppCompatActivity {
         }
 
         for (Expense e : expenses) {
-            int percentage = (int) (e.getAmount() / totalExpenses);
+            int percentage = (int) ((e.getAmount() / totalExpenses) * 100);
             generateExpense(e, percentage);
         }
 
+        // Handle empty budget
+        Button setupBudgetBtn = findViewById(R.id.setupBudgetButton);
+        Button addFundsBtn = findViewById(R.id.addFundsButton);
+
+        if (budget <= 0) {
+            setupBudgetBtn.setVisibility(View.VISIBLE);
+
+                setupBudgetBtn.setText("First time? Set your budget here!");
+                setupBudgetBtn.setOnClickListener(v -> {
+                    Intent intent = new Intent(OverviewActivity.this, BudgetSetupActivity.class);
+                    intent.putExtra("userID", userId);
+                    intent.putExtra("mode", "initial");
+                    startActivity(intent);
+                });
+
+        } else {
+            setupBudgetBtn.setVisibility(View.GONE);
+        }
         //Set views
         bottomNavigationView.setSelectedItemId(R.id.nav_overview);
 
-        int progressPercentage = (budget != 0) ? (int) (expense / budget) : 95;
+        int progressPercentage = (budget != 0) ? (int) ((expense / budget)*100) : 0;
         circlePBar.setProgress(progressPercentage);
 
         double budgetRemaining = budget - expense;
         if (budgetRemaining < 0) {
             budgetText.setTextColor(Color.RED);
         }
-        budgetText.setText("Budget Remaining: $" + budgetRemaining);
+
+        budgetText.setText("Budget Remaining: $" + String.format("%.2f", budgetRemaining));
+
 
         //Handles Bottom Navigation Clicks
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -120,9 +145,9 @@ public class OverviewActivity extends AppCompatActivity {
         //Create the TextView
         TextView expenseText = new TextView(this);
         expenseText.setLayoutParams(new LinearLayout.LayoutParams(
-            0,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            1
+                0,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1
         ));
         String expenseString = expense.getCategory() + ": " + percentage + "%";
         expenseText.setText(expenseString);
