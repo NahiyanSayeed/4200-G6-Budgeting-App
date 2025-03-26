@@ -114,10 +114,9 @@ public class BudgetActivity extends AppCompatActivity {
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_transactions) {
-//                Intent intent = new Intent(BudgetActivity.this, DetailedBreakdownActivity.class);
-//                intent.putExtra("income", income);
-//                startActivity(intent);
-                //todo When transactions is made make a swap here
+                Intent intent = new Intent(BudgetActivity.this, TransactionsActivity.class);
+                intent.putExtra("income", income);
+                startActivity(intent);
             } else if (itemId == R.id.nav_overview) {
                 Intent intent = new Intent(BudgetActivity.this, OverviewActivity.class);
                 intent.putExtra("income", income);

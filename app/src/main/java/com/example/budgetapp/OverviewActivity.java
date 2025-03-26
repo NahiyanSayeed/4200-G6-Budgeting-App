@@ -118,7 +118,7 @@ public class OverviewActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.nav_transactions) {
-                    //startActivity(new Intent(OverviewActivity.this, TransactionsActivity.class));
+                    startActivity(new Intent(OverviewActivity.this, TransactionsActivity.class));
                     return true;
                 } else if (id == R.id.nav_overview) {
                     return true;
