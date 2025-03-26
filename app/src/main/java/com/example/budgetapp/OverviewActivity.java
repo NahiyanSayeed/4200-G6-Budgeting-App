@@ -101,7 +101,7 @@ public class OverviewActivity extends AppCompatActivity {
                   startActivity(new Intent(OverviewActivity.this, BudgetActivity.class));
                   return true;
                 } else if (id == R.id.nav_detailed_breakdown) {
-                    //startActivity(new Intent(OverviewActivity.this, BreakdownActivity.class));
+                    startActivity(new Intent(OverviewActivity.this, DetailedBreakdownActivity.class));
                     return true;
                 }
                 return false;

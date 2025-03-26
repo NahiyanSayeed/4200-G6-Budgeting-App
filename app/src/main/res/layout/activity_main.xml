@@ -1,47 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText_income"
-        android:layout_width="356dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="28dp"
-        android:ems="10"
-        android:hint="Enter your income"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- This pushes everything above down -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="343dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="34dp"
-        android:text="SUBMIT"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_income" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-<!--    Nav Bar if we need it (which we shouldnt in the login page-->
+            <!-- Username input -->
+            <EditText
+                android:id="@+id/editText_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="180dp" />
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottom_nav"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/purple"-->
-<!--        app:menu="@drawable/bottom_nav_menu"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+            <!-- Password input -->
+            <EditText
+                android:id="@+id/editText_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                app:layout_constraintTop_toBottomOf="@id/editText_username"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
 
+            <!-- Login button -->
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textSize="18sp"
+                android:backgroundTint="@color/purple"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toBottomOf="@id/editText_password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/registerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="Don't have an account? Register Here!"
+            android:textColor="@color/blue"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Link section pinned to bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/forgotText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot your password? Reset it Here!"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:paddingTop="8dp"/>
+    </LinearLayout>
+</LinearLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:id="@+id/main"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    tools:context=".MainActivity">-->
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/editText_income"-->
+    <!--        android:layout_width="356dp"-->
+    <!--        android:layout_height="54dp"-->
+    <!--        android:layout_marginTop="168dp"-->
+    <!--        android:layout_marginEnd="28dp"-->
+    <!--        android:ems="10"-->
+    <!--        android:hint="Enter your income"-->
+    <!--        android:inputType="numberDecimal"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_submit"-->
+    <!--        android:layout_width="343dp"-->
+    <!--        android:layout_height="59dp"-->
+    <!--        android:layout_marginTop="28dp"-->
+    <!--        android:layout_marginEnd="34dp"-->
+    <!--        android:text="SUBMIT"-->
+    <!--        android:textSize="30sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/editText_income" />-->
+
+    <!--&lt;!&ndash;    Nav Bar if we need it (which we shouldnt in the login page&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    <com.google.android.material.bottomnavigation.BottomNavigationView&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:id="@+id/bottom_nav"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;        android:background="@color/purple"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:menu="@drawable/bottom_nav_menu"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;        app:layout_constraintEnd_toEndOf="parent" />&ndash;&gt;-->
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

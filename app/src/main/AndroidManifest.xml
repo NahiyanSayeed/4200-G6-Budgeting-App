@@ -28,8 +28,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Test"
+            android:name=".RegisterActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".DetailedBreakdownActivity"
             android:exported="false" />
