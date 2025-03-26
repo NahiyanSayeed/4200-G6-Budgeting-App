@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">BudgetApp</string>
     <string name="list_of_expenses_with_progress_bar">List of expenses with progress bar</string>
+    <string-array name="transaction_types">
+        <item>Income</item>
+        <item>Expense</item>
+    </string-array>
+
+    <string-array name="transaction_categories">
+        <item>Housing</item>
+        <item>Bills</item>
+        <item>Food</item>
+        <item>Transport</item>
+        <item>Entertainment</item>
+        <item>Other</item>
+    </string-array>
+
+
 </resources>

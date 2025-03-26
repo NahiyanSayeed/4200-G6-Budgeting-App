@@ -28,10 +28,9 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
             int itemId = item.getItemId();
 
             if (itemId == R.id.nav_transactions) {
-                // TODO: When Transactions is ready, update this
-                // Intent intent = new Intent(DetailedBreakdownActivity.this, TransactionsActivity.class);
-                // intent.putExtra("income", income);
-                // startActivity(intent);
+                Intent intent = new Intent(DetailedBreakdownActivity.this, TransactionsActivity.class);
+                intent.putExtra("income", income);
+                startActivity(intent);
             } else if (itemId == R.id.nav_overview) {
                 Intent intent = new Intent(DetailedBreakdownActivity.this, OverviewActivity.class);
                 intent.putExtra("income", income);

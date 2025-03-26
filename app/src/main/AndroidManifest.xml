@@ -38,6 +38,8 @@
         <activity
             android:name=".DetailedBreakdownActivity"
             android:exported="false" />
+        <activity android:name=".TransactionsActivity" />
+        <activity android:name=".AddTransactionActivity" />
     </application>
 
 </manifest>
