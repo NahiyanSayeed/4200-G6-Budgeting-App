@@ -59,7 +59,7 @@ public class BudgetActivity extends AppCompatActivity {
     }
 
     private void loadExpensesFromDatabase() {
-        allExpenses = dbHelper.getAllExpenses();
+        allExpenses = dbHelper.getExpensesByUserId(userId);
         updateSummary();
     }
 
