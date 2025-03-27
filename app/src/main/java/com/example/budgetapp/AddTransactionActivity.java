@@ -45,7 +45,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             }
 
             double amount = Double.parseDouble(amountText);
-            if (type.equals("Expense")) amount *= -1;
+            if (type.equals("Income")) amount *= -1;
 
             dbHelper.addExpense(userId, category, desc, amount);
             Toast.makeText(this, "Transaction Saved", Toast.LENGTH_SHORT).show();

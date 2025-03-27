@@ -1,14 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <View
         android:id="@+id/statusBarBackground"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:background="@color/purple" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -16,15 +19,16 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Summary list -->
+        <!-- Summary list - fixed height with weight -->
         <ExpandableListView
             android:id="@+id/summaryListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginTop="16dp"
             android:textStyle="bold"/>
-        <!-- Total amount -->
 
+        <!-- Total amount -->
         <TextView
             android:id="@+id/budgetSummaryTextView"
             android:layout_width="wrap_content"
@@ -35,7 +39,7 @@
 
     </LinearLayout>
 
-    <!--    Bottom Nav Bar-->
+    <!-- Bottom Nav Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
@@ -44,6 +48,3 @@
         app:menu="@drawable/bottom_nav_menu" />
 
 </LinearLayout>
-
-
-
