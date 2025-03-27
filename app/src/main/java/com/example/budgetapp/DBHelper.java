@@ -49,7 +49,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //On database creation
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE expenses(_id INTEGER PRIMARY KEY, category TEXT NOT NULL,description TEXT, amount DOUBLE, FOREIGN KEY(_id) REFERENCES account(_id) ON DELETE CASCADE)";
+        String query = "CREATE TABLE expenses(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, category TEXT NOT NULL,description TEXT, amount DOUBLE, FOREIGN KEY(user_id) REFERENCES account(_id) ON DELETE CASCADE)";
         String query2 = "CREATE TABLE account(_id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR, password VARCHAR)";
         String query3 = "CREATE TABLE budget(_id INTEGER PRIMARY KEY, amount DOUBLE, FOREIGN KEY(_id) REFERENCES account(_id) ON DELETE CASCADE)";
         String query4 = "CREATE TABLE income(_id INTEGER PRIMARY KEY, amount DOUBLE, FOREIGN KEY(_id) REFERENCES account(_id) ON DELETE CASCADE)";
@@ -76,7 +76,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public long addExpense(int userID, String category, String description, double amount) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("_id", userID); //Must match an existing user ID
+        contentValues.put("user_id", userID); //Must match an existing user ID
         contentValues.put("category", category);
         contentValues.put("description", description);
         contentValues.put("amount", amount);
@@ -170,17 +170,24 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteExpenseByDetails(String category, String description, double amount) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("expenses", "category=? AND description=? AND amount=?",
+                new String[]{category, description, String.valueOf(amount)});
+        db.close();
+    }
+
+
     public List<Expense> getAllExpenses() {
         List<Expense> output = new ArrayList<Expense>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM expenses", null);
+        Cursor cursor = db.rawQuery("SELECT category, description, amount FROM expenses", null);
 
         if (cursor.moveToFirst()) {
             do {
-
-                String category = cursor.getString(1);
-                String description = cursor.getString(2);
-                double amount = cursor.getDouble(3);
+                String category = cursor.getString(0);
+                String description = cursor.getString(1);
+                double amount = cursor.getDouble(2);
 
                 output.add(new Expense(category, description, amount));
             } while (cursor.moveToNext());
