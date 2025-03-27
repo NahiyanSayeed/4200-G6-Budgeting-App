@@ -57,12 +57,6 @@ public class OverviewActivity extends AppCompatActivity {
         budgetText = findViewById(R.id.ProgressBarText);
         bottomNavigationView = findViewById(R.id.bottom_nav);
 
-
-        //Get Intents
-        //TODO: Grab budget sql first then getIntent
-        //budget = getIntent().getDoubleExtra("budget", 0);
-        //expense = getIntent().getDoubleExtra("expense", 0);
-
         //Expenses setup
         int userId = getIntent().getIntExtra("userID", -1);
         DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
@@ -163,7 +157,7 @@ public class OverviewActivity extends AppCompatActivity {
         expenseText.setTextSize(16);
 
         //Create the ProgressBar
-        ProgressBar progressBar = new ProgressBar(this);
+        ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         progressBar.setLayoutParams(new LinearLayout.LayoutParams(
                 300,
                 ViewGroup.LayoutParams.WRAP_CONTENT
