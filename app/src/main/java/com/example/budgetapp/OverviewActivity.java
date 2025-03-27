@@ -98,13 +98,14 @@ public class OverviewActivity extends AppCompatActivity {
         } else {
             setupBudgetBtn.setVisibility(View.GONE);
         }
+
         //Set views
         bottomNavigationView.setSelectedItemId(R.id.nav_overview);
 
-        int progressPercentage = (budget != 0) ? (int) ((expense / budget)*100) : 0;
+        int progressPercentage = (budget != 0) ? (int) ((totalExpenses / budget)*100.0) : 0;
         circlePBar.setProgress(progressPercentage);
 
-        double budgetRemaining = budget - expense;
+        double budgetRemaining = budget - totalExpenses;
         if (budgetRemaining < 0) {
             budgetText.setTextColor(Color.RED);
         }
