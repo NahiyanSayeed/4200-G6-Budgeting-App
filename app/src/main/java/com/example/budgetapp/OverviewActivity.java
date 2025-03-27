@@ -69,11 +69,6 @@ public class OverviewActivity extends AppCompatActivity {
             totalExpenses += e.getAmount();
         }
 
-        for (Expense e : expenses) {
-            int percentage = (int) ((e.getAmount() / totalExpenses) * 100);
-            generateExpense(e, percentage);
-        }
-
         // Handle empty budget
         Button setupBudgetBtn = findViewById(R.id.setupBudgetButton);
         Button addFundsBtn = findViewById(R.id.addFundsButton);
@@ -96,16 +91,33 @@ public class OverviewActivity extends AppCompatActivity {
         //Set views
         bottomNavigationView.setSelectedItemId(R.id.nav_overview);
 
-        int progressPercentage = (budget != 0) ? (int) ((totalExpenses / budget)*100.0) : 0;
+        //Get Expenses without any Negatives (Income)
+        double onlyExpenses = 0;
+        for (Expense e : expenses) {
+            if (e.getAmount() >= 0) {
+                onlyExpenses += e.getAmount();
+            }
+        }
+
+        int progressPercentage = (budget != 0) ? (int) ((onlyExpenses / budget)*100.0) : 0;
         circlePBar.setProgress(progressPercentage);
 
-        double budgetRemaining = budget - totalExpenses;
+
+        double budgetRemaining = budget - onlyExpenses;
+
         if (budgetRemaining < 0) {
             budgetText.setTextColor(Color.RED);
         }
 
         budgetText.setText("Budget Remaining: $" + String.format("%.2f", budgetRemaining));
 
+        //Handles the expenses overview sheet. Percent of budget each item takes.
+        for (Expense e : expenses) {
+            if (e.getAmount() >= 0) {
+                int percentage = (int) ((e.getAmount() / budget) * 100);
+                generateExpense(e, percentage);
+            }
+        }
 
         //Handles Bottom Navigation Clicks
 
@@ -144,28 +156,43 @@ public class OverviewActivity extends AppCompatActivity {
     * Purpose: When given an Expense and Percentage, generates a view and percentage bar into the expense list
     * */
     private void generateExpense(Expense expense, int percentage) {
-        //Create the TextView
+        // Create the TextView for the category
         TextView expenseText = new TextView(this);
         expenseText.setLayoutParams(new LinearLayout.LayoutParams(
-                0,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                1
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         ));
         String expenseString = expense.getCategory() + ": " + percentage + "%";
         expenseText.setText(expenseString);
         expenseText.setTextColor(Color.parseColor("#4CAF50"));
         expenseText.setTextSize(16);
 
-        //Create the ProgressBar
+        // Create the ProgressBar
         ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         progressBar.setLayoutParams(new LinearLayout.LayoutParams(
-                300,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.MATCH_PARENT, // Use MATCH_PARENT for full width
+                LinearLayout.LayoutParams.WRAP_CONTENT  // Allow the ProgressBar to wrap its height
         ));
         progressBar.setProgress(percentage);
         progressBar.setMax(100);
 
+        // Ensure the parent LinearLayout is configured to stack elements vertically
+        if (expenseList.getOrientation() != LinearLayout.VERTICAL) {
+            expenseList.setOrientation(LinearLayout.VERTICAL);
+        }
+
+        // Add some space between TextView and ProgressBar (optional)
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(0, 10, 0, 10);  // Adjust the margins for better spacing (top, bottom)
+        expenseText.setLayoutParams(params);
+
+        // Add the TextView and ProgressBar to the layout
         expenseList.addView(expenseText);
         expenseList.addView(progressBar);
     }
+
+
 }
