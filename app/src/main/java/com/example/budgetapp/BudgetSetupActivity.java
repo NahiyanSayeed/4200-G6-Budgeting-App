@@ -33,15 +33,19 @@ public class BudgetSetupActivity extends AppCompatActivity {
                 return;
             }
 
-            double budget = Double.parseDouble(budgetStr);
-            dbHelper.deleteBudgetData(userId);
-            dbHelper.addBudget(userId, budget);
-            Toast.makeText(this, "Budget saved!", Toast.LENGTH_SHORT).show();
+            try {
+                double budget = Double.parseDouble(budgetStr);
+                dbHelper.deleteBudgetData(userId);
+                dbHelper.addBudget(userId, budget);
+                Toast.makeText(this, "Budget saved!", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(BudgetSetupActivity.this, OverviewActivity.class);
-            intent.putExtra("userID", userId);
-            startActivity(intent);
-            finish();
+                Intent intent = new Intent(BudgetSetupActivity.this, OverviewActivity.class);
+                intent.putExtra("userID", userId);
+                startActivity(intent);
+                finish();
+            }catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid budget format. Please enter valid number", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
