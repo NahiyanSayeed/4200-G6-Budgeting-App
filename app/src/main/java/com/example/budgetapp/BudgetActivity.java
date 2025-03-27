@@ -39,13 +39,13 @@ public class BudgetActivity extends AppCompatActivity {
 
         // Initialize categories
         categories = new ArrayList<>();
+        categories.add("Income");
         categories.add("Housing");
         categories.add("Bills");
         categories.add("Food");
         categories.add("Transport");
         categories.add("Entertainment");
         categories.add("Other");
-        categories.add("Income"); // Add Income as a category
 
         // Initialize adapter
         adapter = new BudgetAdapter();
@@ -65,66 +65,66 @@ public class BudgetActivity extends AppCompatActivity {
 
     private void updateSummary() {
         Log.d("BudgetDebug", "Attempting to get budget for userID: " + userId);
-        // Get budget and income from database
         final double initialBudget = dbHelper.getBudgetById(userId);
-        final double totalIncome = dbHelper.getIncomeById(userId);
-        Log.d("BudgetDebug", "Initial Budget: " + initialBudget + ", Income: " + totalIncome);
 
-        // Calculate total expenses
+        // Separate income and expenses
+        double totalIncome = 0;
         double totalExpenses = 0;
+        List<Expense> incomeList = new ArrayList<>();
+        List<Expense> expenseList = new ArrayList<>();
+
         for (Expense expense : allExpenses) {
-            totalExpenses += expense.getAmount();
+            if (expense.getAmount() < 0) {
+                totalIncome += Math.abs(expense.getAmount());
+                incomeList.add(expense);
+            } else {
+                totalExpenses += expense.getAmount();
+                expenseList.add(expense);
+            }
         }
 
-        // Calculate remaining budget (initial budget + income - expenses)
-        double remainingBudget = initialBudget + totalIncome + totalExpenses;
 
-        // Set summary text
+        double remainingBudget = initialBudget + totalIncome - totalExpenses;
+
         budgetSummaryTextView.setText(String.format(
                 "Initial Budget: $%.2f\n" +
                         "Total Income: $%.2f\n" +
                         "Total Expenses: $%.2f\n" +
                         "Remaining Budget: $%.2f",
-                initialBudget, totalIncome, totalExpenses, remainingBudget
+                initialBudget, Math.abs(totalIncome), totalExpenses, remainingBudget
         ));
 
-        // Notify adapter of data changes
-        adapter.updateData(allExpenses, totalIncome);
+        adapter.updateData(incomeList, expenseList, totalIncome);
     }
 
-    // Custom adapter class
     private class BudgetAdapter extends BaseExpandableListAdapter {
         private Map<String, List<Expense>> expensesByCategory = new HashMap<>();
+        private List<Expense> incomeItems = new ArrayList<>();
         private double totalIncome;
 
         public BudgetAdapter() {
-            // Initialize the map with empty lists for each category
             for (String category : categories) {
                 expensesByCategory.put(category, new ArrayList<>());
             }
         }
 
-        public void updateData(List<Expense> newExpenses, double income) {
+        public void updateData(List<Expense> incomeList, List<Expense> expenseList, double income) {
             this.totalIncome = income;
+            this.incomeItems = incomeList;
 
             // Clear existing data
-            for (List<Expense> expenseList : expensesByCategory.values()) {
-                expenseList.clear();
+            for (List<Expense> list : expensesByCategory.values()) {
+                list.clear();
             }
 
-            // Populate with new data
-            for (Expense expense : newExpenses) {
+            // Populate expenses by category
+            for (Expense expense : expenseList) {
                 String category = expense.getCategory();
                 if (expensesByCategory.containsKey(category)) {
                     expensesByCategory.get(category).add(expense);
                 } else {
                     expensesByCategory.get("Other").add(expense);
                 }
-            }
-
-            // Add income as a special "expense" (but with positive amount)
-            if (totalIncome > 0) {
-                expensesByCategory.get("Income").add(new Expense("Income", "Total Income", totalIncome));
             }
 
             notifyDataSetChanged();
@@ -138,6 +138,9 @@ public class BudgetActivity extends AppCompatActivity {
         @Override
         public int getChildrenCount(int groupPosition) {
             String category = categories.get(groupPosition);
+            if (category.equals("Income")) {
+                return incomeItems.size();
+            }
             return expensesByCategory.get(category).size();
         }
 
@@ -149,6 +152,9 @@ public class BudgetActivity extends AppCompatActivity {
         @Override
         public Object getChild(int groupPosition, int childPosition) {
             String category = categories.get(groupPosition);
+            if (category.equals("Income")) {
+                return incomeItems.get(childPosition);
+            }
             return expensesByCategory.get(category).get(childPosition);
         }
 
@@ -176,18 +182,19 @@ public class BudgetActivity extends AppCompatActivity {
             TextView textView = convertView.findViewById(android.R.id.text1);
             String category = categories.get(groupPosition);
 
-            // Calculate total for this category
             double total = 0;
-            for (Expense expense : expensesByCategory.get(category)) {
-                total += expense.getAmount();
+            if (category.equals("Income")) {
+                total = totalIncome;
+            } else {
+                for (Expense expense : expensesByCategory.get(category)) {
+                    total += expense.getAmount();  // Expenses are negative
+                }
             }
 
-            // Set text (format Income with +$)
             if (category.equals("Income")) {
                 textView.setText(String.format("%s: +$%.2f", category, total));
             } else {
-                textView.setText(String.format("%s: $%.2f", category, total));
-                // Do NOT set color here → keeps default theme color
+                textView.setText(String.format("%s: -$%.2f", category, Math.abs(total)));
             }
 
             return convertView;
@@ -206,11 +213,11 @@ public class BudgetActivity extends AppCompatActivity {
             Expense expense = (Expense) getChild(groupPosition, childPosition);
             descriptionTextView.setText(expense.getDescription());
 
-            // Format amount differently for income vs expenses
-            if (expense.getCategory().equals("Income")) {
-                amountTextView.setText(String.format("+$%.2f", expense.getAmount()));
+            if (categories.get(groupPosition).equals("Income")) {
+                amountTextView.setText(String.format("+$%.2f", Math.abs(expense.getAmount())));
+                amountTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
             } else {
-                amountTextView.setText(String.format("-$%.2f", expense.getAmount()));
+                amountTextView.setText(String.format("-$%.2f", Math.abs(expense.getAmount())));
                 amountTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
             }
 

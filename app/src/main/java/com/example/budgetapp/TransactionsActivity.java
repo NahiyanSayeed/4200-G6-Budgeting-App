@@ -43,13 +43,13 @@ public class TransactionsActivity extends AppCompatActivity {
             if (itemId == R.id.nav_transactions) {
                 return true;
             } else if (itemId == R.id.nav_overview) {
-                startActivity(new Intent(this, OverviewActivity.class));
+                startActivity(new Intent(this, OverviewActivity.class).putExtra("userID", userId));
                 return true;
             } else if (itemId == R.id.nav_budget_sheet) {
-                startActivity(new Intent(this, BudgetActivity.class));
+                startActivity(new Intent(this, BudgetActivity.class).putExtra("userID", userId));
                 return true;
             } else if (itemId == R.id.nav_detailed_breakdown) {
-                startActivity(new Intent(this, DetailedBreakdownActivity.class));
+                startActivity(new Intent(this, DetailedBreakdownActivity.class).putExtra("userID", userId));
                 return true;
             }
             return false;
