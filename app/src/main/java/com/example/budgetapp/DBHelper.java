@@ -199,6 +199,25 @@ public class DBHelper extends SQLiteOpenHelper {
         return output;
     }
 
+    public List<Expense> getExpensesByUserId(int userId) {
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM expenses WHERE user_id=?", new String[]{String.valueOf(userId)});
+
+            List<Expense> output = new ArrayList<Expense>();
+        if (cursor.moveToFirst()) {
+            do {
+                String category = cursor.getString(0);
+                String description = cursor.getString(1);
+                double amount = cursor.getDouble(2);
+
+                output.add(new Expense(category, description, amount));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return output;
+    }
+
     public Expense getExpenseById(int id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM expenses WHERE _id=?", new String[]{String.valueOf(id)});

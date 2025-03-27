@@ -1,5 +1,6 @@
 package com.example.budgetapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,9 @@ public class AddTransactionActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.button_save);
 
         dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+
+        //Grab userID from intent
+        userId = getIntent().getIntExtra("userID", -1);
 
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
                 R.array.transaction_types, android.R.layout.simple_spinner_item);

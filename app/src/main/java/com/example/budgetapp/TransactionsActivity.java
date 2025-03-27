@@ -21,6 +21,9 @@ public class TransactionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions);
 
+        //Grab userID from intent
+        userId = getIntent().getIntExtra("userID", -1);
+
         // Initialize views
         transactionListView = findViewById(R.id.transaction_list);
         FloatingActionButton fab = findViewById(R.id.fab_add_transaction);
@@ -63,7 +66,7 @@ public class TransactionsActivity extends AppCompatActivity {
     }
 
     private void loadTransactions() {
-        transactions = dbHelper.getAllExpenses();
+        transactions = dbHelper.getExpensesByUserId(userId);
         TransactionAdapter adapter = new TransactionAdapter(this, transactions);
         transactionListView.setAdapter(adapter);
     }
