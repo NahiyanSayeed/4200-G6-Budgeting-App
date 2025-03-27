@@ -38,7 +38,7 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
 
         final double totalSpent = calculateTotalSpent(allExpenses);
         final double budget = dbHelper.getBudgetById(userId);
-        final double remaining = budget - totalSpent;
+        final double remaining = budget + totalSpent;
 
         summary.setText("Budget: $" + budget +
                 " | Spent: $" + String.format("%.2f", totalSpent) +
