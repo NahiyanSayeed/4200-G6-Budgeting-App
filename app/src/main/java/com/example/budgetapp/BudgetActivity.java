@@ -110,6 +110,8 @@ public class BudgetActivity extends AppCompatActivity {
         updateSummary();
 
         // Handles nav bar
+
+        //todo update to have user ID passed
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();

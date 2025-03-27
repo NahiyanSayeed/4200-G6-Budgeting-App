@@ -26,6 +26,11 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_breakdown);
 
+
+
+        int userId = getIntent().getIntExtra("userID", -1);
+
+
         GridLayout grid = findViewById(R.id.gridContainer);
         DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
         List<Expense> allExpenses = dbHelper.getAllExpenses();
@@ -93,13 +98,19 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.nav_transactions) {
-                    startActivity(new Intent(DetailedBreakdownActivity.this, TransactionsActivity.class));
+                    Intent intent = new Intent(DetailedBreakdownActivity.this, TransactionsActivity.class);
+                    intent.putExtra("userID", userId);
+                    startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_overview) {
-                    startActivity(new Intent(DetailedBreakdownActivity.this, OverviewActivity.class));
+                    Intent intent = new Intent(DetailedBreakdownActivity.this, OverviewActivity.class);
+                    intent.putExtra("userID", userId);
+                    startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_budget_sheet) {
-                    startActivity(new Intent(DetailedBreakdownActivity.this, BudgetActivity.class));
+                    Intent intent = new Intent(DetailedBreakdownActivity.this, BudgetActivity.class);
+                    intent.putExtra("userID", userId);
+                    startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_detailed_breakdown) {
                     return true;

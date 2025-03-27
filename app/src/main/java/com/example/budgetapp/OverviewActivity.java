@@ -113,20 +113,27 @@ public class OverviewActivity extends AppCompatActivity {
 
 
         //Handles Bottom Navigation Clicks
+
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.nav_transactions) {
-                    startActivity(new Intent(OverviewActivity.this, TransactionsActivity.class));
+                    Intent intent = new Intent(OverviewActivity.this, TransactionsActivity.class);
+                    intent.putExtra("userID", userId); // <-- pass it
+                    startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_overview) {
                     return true;
                 } else if (id == R.id.nav_budget_sheet) {
-                  startActivity(new Intent(OverviewActivity.this, BudgetActivity.class));
-                  return true;
+                    Intent intent = new Intent(OverviewActivity.this, BudgetActivity.class);
+                    intent.putExtra("userID", userId);
+                    startActivity(intent);
+                    return true;
                 } else if (id == R.id.nav_detailed_breakdown) {
-                    startActivity(new Intent(OverviewActivity.this, DetailedBreakdownActivity.class));
+                    Intent intent = new Intent(OverviewActivity.this, DetailedBreakdownActivity.class);
+                    intent.putExtra("userID", userId);
+                    startActivity(intent);
                     return true;
                 }
                 return false;
