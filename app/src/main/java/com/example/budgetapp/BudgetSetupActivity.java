@@ -34,6 +34,7 @@ public class BudgetSetupActivity extends AppCompatActivity {
             }
 
             double budget = Double.parseDouble(budgetStr);
+            dbHelper.deleteBudgetData(userId);
             dbHelper.addBudget(userId, budget);
             Toast.makeText(this, "Budget saved!", Toast.LENGTH_SHORT).show();
 
