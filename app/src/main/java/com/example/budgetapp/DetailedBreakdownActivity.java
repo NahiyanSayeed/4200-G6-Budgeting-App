@@ -38,7 +38,7 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
 
         final double totalSpent = calculateTotalSpent(allExpenses);
         final double budget = dbHelper.getBudgetById(userId);
-        final double remaining = budget + totalSpent;
+        final double remaining = budget - totalSpent;
 
         summary.setText("Budget: $" + budget +
                 " | Spent: $" + String.format("%.2f", totalSpent) +
@@ -70,26 +70,12 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
             TextView title = card.findViewById(R.id.categoryTitle);
             LinearLayout container = card.findViewById(R.id.expensesContainer);
 
-            double percentage = (budget > 0) ? (total / budget) * 100 : 0;
+            // Percent of total expenses instead of budget
+            double percentage = (totalSpent > 0) ? (total / totalSpent) * 100 : 0;
 
-            // Remaining allowance
-            double remainingForCategory = budget * (percentage / 100) - total;
-            TextView allowanceText = new TextView(this);
-            allowanceText.setTextSize(14f);
-
-            if (remainingForCategory < 0) {
-                allowanceText.setText("Over budget by $" + String.format("%.2f", Math.abs(remainingForCategory)));
-                allowanceText.setTextColor(Color.RED);
-            } else {
-                allowanceText.setText("Remaining: $" + String.format("%.2f", remainingForCategory));
-                allowanceText.setTextColor(Color.DKGRAY);
-            }
-
-            container.addView(allowanceText);
-
-            // Title + % of budget
+            // Title + % of expenses
             title.setText(category + "\n(Total: $" + String.format("%.2f", total) + ")" +
-                    "\n" + String.format("%.1f", percentage) + "% of budget");
+                    "\n" + String.format("%.1f", percentage) + "% of total");
 
             if (percentage > 30) {
                 title.setTextColor(Color.RED);
@@ -174,7 +160,7 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
         Button shareBtn = findViewById(R.id.shareSummary);
         shareBtn.setOnClickListener(v -> {
             StringBuilder summaryText = new StringBuilder();
-            summaryText.append("📊 Budget Summary\n");
+            summaryText.append("Budget Summary\n");
             summaryText.append("Total Budget: $" + budget + "\n");
             summaryText.append("Total Spent: $" + String.format("%.2f", totalSpent) + "\n\n");
 
@@ -182,10 +168,9 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
                 List<Expense> expenses = categoryMap.get(category);
                 double catTotal = 0;
                 for (Expense e : expenses) catTotal += e.getAmount();
-
-                double percent = (budget > 0) ? (catTotal / budget) * 100 : 0;
+                double percent = (totalSpent > 0) ? (catTotal / totalSpent) * 100 : 0;
                 summaryText.append("• " + category + ": $" + String.format("%.2f", catTotal) +
-                        " (" + String.format("%.1f", percent) + "% of budget)\n");
+                        " (" + String.format("%.1f", percent) + "% of Total Spent)\n");
             }
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
