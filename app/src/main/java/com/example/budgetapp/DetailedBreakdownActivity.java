@@ -72,8 +72,16 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
             });
 
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = 0;
-            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+
+            if (category.equals("Entertainment")) {
+                // Span full width if it's the last card
+                params.columnSpec = GridLayout.spec(0, 2); // span 2 columns
+                params.width = GridLayout.LayoutParams.MATCH_PARENT;
+            } else {
+                params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                params.width = 0;
+            }
+
             card.setLayoutParams(params);
 
             grid.addView(card);
