@@ -15,52 +15,23 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:padding="16dp">
-        <!-- Dropdown for categories -->
-        <Spinner
-            android:id="@+id/categorySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Category"
-            android:paddingTop="10dp"
-            />
-
-        <!-- Input for monetary amount -->
-        <EditText
-            android:id="@+id/amountInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter amount"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:id="@+id/descriptionInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter description (e.g., Water)" />
-
-        <!-- Submit button -->
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="Submit" />
 
         <!-- Summary list -->
         <ExpandableListView
             android:id="@+id/summaryListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-        <!-- Total amount -->
-        <TextView
-            android:id="@+id/totalTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Total: $0.00"
+            android:textStyle="bold"/>
+        <!-- Total amount -->
+
+        <TextView
+            android:id="@+id/budgetSummaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Budget Summary"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
