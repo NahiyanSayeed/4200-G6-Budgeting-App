@@ -31,6 +31,7 @@
             android:name=".RegisterActivity"
             android:exported="false" />
 
+        <activity android:name=".BudgetSetupActivity"/>
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false"/>
@@ -40,6 +41,9 @@
             android:exported="false" />
         <activity android:name=".TransactionsActivity" />
         <activity android:name=".AddTransactionActivity" />
+
+
+
     </application>
 
 </manifest>

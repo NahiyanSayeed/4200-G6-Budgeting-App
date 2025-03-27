@@ -16,12 +16,8 @@ public class MainActivity extends AppCompatActivity {
 //    EditText editIncome;
 //    Button btnSubmit;
 
-
     EditText editUsername, editPassword;
     Button btnLogin;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
