@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPasswordInput = findViewById(R.id.editText_con_password);
         registerButton = findViewById(R.id.btn_register);
 
-        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 2);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

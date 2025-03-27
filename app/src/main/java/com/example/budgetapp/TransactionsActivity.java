@@ -2,6 +2,7 @@ package com.example.budgetapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,12 +31,13 @@ public class TransactionsActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
 
         // Setup DB + Load List
-        dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        dbHelper = new DBHelper(this, "BudgetDB", null, 2);
         loadTransactions();
 
         // FAB to open AddTransactionActivity
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(TransactionsActivity.this, AddTransactionActivity.class);
+            intent.putExtra("userID", userId);
             startActivity(intent);
         });
 

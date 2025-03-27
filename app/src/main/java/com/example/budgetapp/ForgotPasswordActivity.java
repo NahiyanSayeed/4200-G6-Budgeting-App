@@ -25,7 +25,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         btnResetPassword = findViewById(R.id.btnResetPassword);
 
-        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 2);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override

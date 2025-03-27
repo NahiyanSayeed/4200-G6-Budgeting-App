@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.editText_password);
         btnLogin = findViewById(R.id.btn_login);
 
-        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 2);
 
         TextView registerText = findViewById(R.id.registerText);
         registerText.setOnClickListener(new View.OnClickListener() {

@@ -30,7 +30,7 @@ public class BudgetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_sheet);
 
-        dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        dbHelper = new DBHelper(this, "BudgetDB", null, 2);
         userId = getIntent().getIntExtra("userID", -1);
 
         // Initialize views

@@ -33,7 +33,7 @@ public class DetailedBreakdownActivity extends AppCompatActivity {
         GridLayout grid = findViewById(R.id.gridContainer);
         TextView summary = findViewById(R.id.budgetSummary);
 
-        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 2);
         List<Expense> allExpenses = dbHelper.getAllExpenses();
 
         final double totalSpent = calculateTotalSpent(allExpenses);

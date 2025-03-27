@@ -12,6 +12,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     Button saveButton;
     DBHelper dbHelper;
     int userId = 1;
+    int expenseNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         descriptionInput = findViewById(R.id.edit_description);
         saveButton = findViewById(R.id.button_save);
 
-        dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        dbHelper = new DBHelper(this, "BudgetDB", null, 2);
 
         //Grab userID from intent
         userId = getIntent().getIntExtra("userID", -1);

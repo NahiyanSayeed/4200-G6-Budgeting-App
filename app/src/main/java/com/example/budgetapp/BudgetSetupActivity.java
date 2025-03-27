@@ -22,7 +22,7 @@ public class BudgetSetupActivity extends AppCompatActivity {
 
         budgetInput = findViewById(R.id.budgetInput);
         saveBudgetButton = findViewById(R.id.saveBudgetButton);
-        dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        dbHelper = new DBHelper(this, "BudgetDB", null, 2);
 
         userId = getIntent().getIntExtra("userID", -1);
 

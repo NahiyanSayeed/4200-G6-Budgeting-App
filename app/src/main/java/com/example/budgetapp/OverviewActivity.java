@@ -59,7 +59,7 @@ public class OverviewActivity extends AppCompatActivity {
 
         //Expenses setup
         int userId = getIntent().getIntExtra("userID", -1);
-        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 1);
+        DBHelper dbHelper = new DBHelper(this, "BudgetDB", null, 2);
         budget = dbHelper.getBudgetById(userId); // <-- budget from DB
 
         List<Expense> expenses = dbHelper.getAllExpenses();

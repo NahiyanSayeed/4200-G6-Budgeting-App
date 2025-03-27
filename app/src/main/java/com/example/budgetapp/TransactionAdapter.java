@@ -15,7 +15,7 @@ public class TransactionAdapter extends BaseAdapter {
     public TransactionAdapter(Context context, List<Expense> transactions) {
         this.context = context;
         this.transactions = transactions;
-        this.dbHelper = new DBHelper(context, "BudgetDB", null, 1);
+        this.dbHelper = new DBHelper(context, "BudgetDB", null, 2);
     }
 
     @Override
